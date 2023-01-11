@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav {
+    background-color: orange;
+    color: white;
+    padding: .5em 0;
+}
+
+nav > ul {
+    list-style: none;
+    padding: none;
+    display: flex;
+    column-gap: 2em;
+    align-items: center;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+nav > ul > li:first-of-type > a {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.activeLink {
+    font-weight: bold;
+}
+
