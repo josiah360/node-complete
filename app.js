@@ -59,7 +59,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'))
 
 app.use(session({
-  secret: '12345678901234567890123456789012', 
+  secret: null, 
   resave: false, 
   saveUninitialized: false, 
   store: store
