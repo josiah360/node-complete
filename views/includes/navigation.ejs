@@ -3,11 +3,27 @@
         <li><a href="/">Shoperholic</a></li>
         <li><a href="/" class="<%= activeLink === '/' ? 'activeLink' : '' %>">Home</a></li>
         <li><a href="/products" class="<%= activeLink === '/products' ? 'activeLink' : '' %>">Products</a></li>
-        <li><a href="/cart" class="<%= activeLink === '/cart' ? 'activeLink' : '' %>">Cart</a></li>
-        <li><a href="/orders" class="<%= activeLink === '/orders' ? 'activeLink' : '' %>">Orders</a></li>
-        <li><a href="/admin/add-product" class="<%= activeLink === '/admin/add-product' ? 'activeLink' : '' %>">Add Products</a></li>
-        <li><a href="/admin/products" class="<%= activeLink === '/admin/products' ? 'activeLink' : '' %>">Admin Products</a></li>
 
+        <% if (isAuthenticated) { %>
+            <li><a href="/cart" class="<%= activeLink === '/cart' ? 'activeLink' : '' %>">Cart</a></li>
+            <li><a href="/orders" class="<%= activeLink === '/orders' ? 'activeLink' : '' %>">Orders</a></li>
+            <li><a href="/admin/add-product" class="<%= activeLink === '/admin/add-product' ? 'activeLink' : '' %>">Add Products</a></li>
+            <li><a href="/admin/products" class="<%= activeLink === '/admin/products' ? 'activeLink' : '' %>">Admin Products</a></li>
+        <% } %>
 
+        <% if(!isAuthenticated) { %>
+            <li><a href="/login" class="<%= activeLink === '/login' ? 'activeLink' : '' %>">Login</a></li>
+            <li><a href="/signup" class="<%= activeLink === '/signup' ? 'activeLink' : '' %>">Sign Up</a></li>
+        <% } %>
+        
+        <% if(isAuthenticated) { %>
+            <li>
+                <form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        <% } %>
+        
     </ul>
 </nav> 

@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+        
+    </head>
+    
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+       <main>
+            <% if(errorMessage) { %>
+                <h1><%= errorMessage %></h1>
+            <% } %>
+
+            <form action="/reset" method="POST" novalidate>
+                <div class="form-control">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="<%= oldInput %>"/>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button type="submit">Reset Password</button>
+            </form>
+       </main>
+    
+    <%- include('../includes/end.ejs') %>

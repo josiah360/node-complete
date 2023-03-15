@@ -8,12 +8,17 @@
 
         <% if (cart.length > 0) { %>
             <% for (let item of cart) { %>
-                <h1><%= item.productData.title %> (<%= item.qty %>)</h1>
+                <h1><%= item.productId.title %> (<%= item.quantity %>)</h1>
                 <form action="/delete-cart" method="POST">
-                    <input type="hidden" name="productId" value="<%= item.productData.id %>" />
+                    <input type="hidden" name="productId" value="<%= item.productId._id %>" />
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <button type="submit" class="btn">Delete</button>
                 </form>
             <% } %>
+            <form action="/orders" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button type="submit">Order Now</button>
+            </form>
         <% } else { %>
             <h1>Your cart is empty</h1>
         <% } %>

@@ -18,8 +18,9 @@
                                 <p><%= product.price %></p>
                                 <a href="/products/<%= product.id %>" class="btn">Details</a>
                                 
-                                <%- include('../includes/cart-form.ejs', {product: product}) %>
-
+                                <% if(isAuthenticated) { %>
+                                    <%- include('../includes/cart-form.ejs', {product: product}) %>
+                                <% } %>
                             </div>
                         </li>
                     <% } %>

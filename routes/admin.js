@@ -1,20 +1,50 @@
-
+const { body, } = require('express-validator')
 const express = require('express')
 
 const router = express.Router()
 
 const adminControllers = require('../controllers/admin')
 
-router.get('/add-product', adminControllers.getAddProducts)
+const isAuth = require('../middleware/isAuth')
 
-router.get('/products', adminControllers.getProducts)
+router.get('/add-product', isAuth, adminControllers.getAddProducts)
 
-router.post('/product', adminControllers.postAddProducts)
+router.get('/products', isAuth, adminControllers.getProducts)
 
-router.get('/edit-product/:productId', adminControllers.getEditProduct)
+router.post(
+    '/product', 
+    [
+        body('title')
+        .isString()
+        .isLength({min: 3}) 
+        .trim(),
+        body('description')
+        .isLength({min: 5})
+        .trim(),
+        body('price').isFloat()
+    ],
+    isAuth, 
+    adminControllers.postAddProducts
+)
 
-router.post('/edit-product', adminControllers.postEditProduct)
+router.get('/edit-product/:productId', isAuth, adminControllers.getEditProduct)
 
-router.post('/delete-product', adminControllers.postDeleteProduct)
+router.post(
+    '/edit-product', 
+    [
+        body('title')
+        .isString()
+        .isLength({min: 3}) 
+        .trim(),
+        body('description')
+        .isLength({min: 5})
+        .trim(),
+        body('price').isFloat()
+    ],
+    isAuth, 
+    adminControllers.postEditProduct
+)
+
+router.post('/delete-product', isAuth, adminControllers.postDeleteProduct)
 
 module.exports = router

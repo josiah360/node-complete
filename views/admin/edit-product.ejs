@@ -7,14 +7,19 @@
         <%- include('../includes/navigation.ejs') %>
         
         <main>
-            <form action="/admin/<% if (editing) { %>edit-product<% } else { %>product<% } %>" method="POST">
+            <% if(errorMessage) { %>
+                <h1><%= errorMessage %></h1>
+            <% } %>
+            <form action="/admin/<% if (editing) { %>edit-product<% } else { %>product<% } %>" method="POST" novalidate enctype="multipart/form-data">
                 <% if (editing) { %>
                     <input type="hidden" name="productId" value="<%= product.id %>" />
                 <% } %>
-                <input type="text" name='title' placeholder="Title" value="<% if (editing) { %> <%= product.title %> <% } %> " />
-                <input type="text" name='imgUrl' placeholder="ImageUrl" value="<% if (editing) { %> <%= product.imgUrl %> <% } %> "  />
-                <input type="text" name='description' placeholder="Description" value="<% if (editing) { %> <%= product.description %> <% } %> "   />
-                <input type="number" name='price' step="0.01" placeholder="Price" value="<% if (editing) { %> <%= product.price %> <% } %> " />
+                <input type="text" name='title' placeholder="Title" value="<% if (editing || hasError) { %> <%= product.title %> <% } %>" />
+                <!-- <input type="url" name='imgUrl' placeholder="ImageUrl" value="<% if (editing || hasError) { %> <%= product.imgUrl %> <% } %>"  /> -->
+                <input type="file" name='image' placeholder="image"  />
+                <input type="text" name='description' placeholder="Description" value="<% if (editing || hasError) { %> <%= product.description %> <% } %>"   />
+                <input type="number" name='price' step="0.01" placeholder="Price" value="<% if (editing || hasError) { %> <%= product.price %> <% } %>" />
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button class="btn" type="submit"><% if(editing) { %> Update Product <% } else { %> Add Product <% } %> </button>
             </form>
         </main>

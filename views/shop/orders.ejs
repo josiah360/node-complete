@@ -4,5 +4,16 @@
 
 <body>
     <%- include('../includes/navigation.ejs') %>
-
+      <main>
+        <% if(orders.length > 0) { %>
+            <% for( let order of orders) { %>
+                <h1> <%= order._id %></h1>
+                <% order.products.forEach(product => { %>
+                    <p><%= product.product.title %> <% product.product.quantity %> - <a href="/orders/<%= order._id %>">Invoice</a></p>
+                <% }) %>
+            <% } %>
+        <% } else { %>
+                <h1>No order found!</h1>
+            <% } %>
+      </main>
 <%- include('../includes/end.ejs') %>

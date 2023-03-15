@@ -14,7 +14,10 @@
                 <p><%= product.description %></p>
                 <small><%= product.price %></small>
                 
-                <%- include('../includes/cart-form.ejs') %>
+                <% if(isAuthenticated) { %>
+                    <%- include('../includes/cart-form.ejs') %>  
+                <% } %>
+                   
             </div>
 
         </main>
